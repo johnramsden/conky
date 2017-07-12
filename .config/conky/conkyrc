@@ -1,0 +1,118 @@
+-- conky configuration
+conky.config = {
+	-- For KDE Integration
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_argb_value = 180, -- Defines opacity of background
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+
+	-- set to yes if you want Conky to be forked in the background
+	background = false,
+
+	-- Use Xft?
+	use_xft = true,
+
+	-- Xft font when Xft is enabled
+	--xftfont Bitstream Vera Sans Mono:size=8
+	font = 'Terminus:size=8',
+
+	-- Text alpha when using Xft
+	xftalpha = 0.8,
+
+
+	-- Update interval in seconds
+	update_interval = 2.0,
+
+	-- This is the number of times Conky will update before quitting.
+	-- Set to zero to run forever.
+	total_run_times = 0,
+
+	-- Use double buffering (reduces flicker, may not work for everyone)
+	double_buffer = true,
+
+	-- Default colors and also border colors
+	default_color = 'white',
+
+	-- Screen location
+	alignment = 'top_right',
+
+	-- Gap between borders of screen and text
+	-- same thing as passing -x at command line
+	gap_x = 10,
+	gap_y = 10,
+
+
+	-- Subtract file system buffers from used memory?
+	no_buffers = true,
+
+	-- set to yes if you want all text to be in uppercase
+	uppercase = false,
+
+	-- number of cpu samples to average
+	-- set to 1 to disable averaging
+	cpu_avg_samples = 2,
+
+	-- number of net samples to average
+	-- set to 1 to disable averaging
+	net_avg_samples = 2,
+
+	-- Force UTF8? note that UTF8 support required XFT
+	override_utf8_locale = false,
+}
+
+conky.text = [[
+SYSTEM ${hr 4}
+${image ~/Computer/Linux/Profiles/Conky/Images/arch.png -p 0,30}${goto 125}${voffset 10}${machine}
+${goto 75}Kernel: ${kernel}
+${voffset 10}${hr 4}${voffset 10}
+${color slate grey}${time %a, } ${color }${time %e %B %G}
+${color slate grey}${time %Z,    }${color }${time %H:%M:%S}
+${color slate grey}UpTime: ${color }$uptime
+${color slate grey}Package Updates: ${color }${execpi 1200 checkupdates | wc -l}
+${voffset 10}CPU ${hr 4}${voffset 10}
+${color slate grey}USAGE:${color } $cpu% ${acpitemp}C
+${cpugraph 20,130 000000 ffffff}
+${color slate grey}Load: ${color }$loadavg
+${color slate grey}Processes: ${color }$processes
+${color slate grey}Running:   ${color }$running_processes
+${color slate grey}${hr 1}${color }
+${color slate grey}Highest CPU:
+${color #ddaa00} ${top name 1}${top_mem cpu 1}
+${color lightgrey} ${top name 2}${top cpu 2}
+${color lightgrey} ${top name 3}${top cpu 3}
+${color lightgrey} ${top name 4}${top cpu 4}
+${voffset 10}MEMORY ${hr 4}${voffset 10}
+${color slate grey}USAGE:  ${color } $memperc% $mem/$memmax
+${membar 3,100}
+${color slate grey}${hr 1}${color }
+${color slate grey}Highest MEM:
+${color #ddaa00} ${top_mem name 1}${top_mem mem 1}
+${color lightgrey} ${top_mem name 2}${top_mem mem 2}
+${color lightgrey} ${top_mem name 3}${top_mem mem 3}
+${color lightgrey} ${top_mem name 4}${top_mem mem 4}
+${voffset 10}NETWORK ${hr 4}${voffset 10}
+${color slate grey}Ip: ${color }${addr br0}
+${color slate grey}Email: ${color } ${execpi 300 ~/Computer/Linux/Profiles/Conky/Scripts/email.pl} new email
+${color slate grey}${hr 1}${color }
+${color slate grey}Download: ${color } ${downspeed br0}
+${color slate grey}Upload: ${color } ${upspeed br0}
+${voffset 20}ZPOOL: ${hr 4}${voffset 10}
+${texeci 180 sudo zpool status -x}
+${color slate grey}${hr 1}${color }
+Pool:${goto 75}Size:${goto 150}Alloc:${goto 225}Free:${goto 300}Cap:${voffset -10}
+${color slate grey}--------------------------------------------------${color }
+${texeci 180 sudo zpool list -H -o name vault}${goto 75}${texeci 180 sudo zpool list -H -o size vault}${goto 150}${texeci 180 sudo zpool list -H -o alloc vault}${goto 225}${texeci 180 sudo zpool list -H -o free vault}${goto 300}${texeci 180 sudo zpool list -H -o cap vault}
+${color slate grey}${hr 1}${color }
+${color slate grey}Datasets:${color }
+Name:${goto 200}Used:${goto 275}Snapshots:
+${color slate grey}--------------------------------------------------${color }
+${color slate grey}System:${color }
+vault${goto 200}${texeci 180 sudo zfs list vault -H -o used}${goto 275}${texeci 180 sudo zfs list vault -H -o avail}
+default${goto 200}${texeci 180 sudo zfs list vault/ROOT/default -H -o used}${goto 275}${texeci 180 sudo zfs list vault/ROOT/default -H -o avail}
+home${goto 200}${texeci 180 sudo zfs list shard/home -H -o used}${goto 275}${texeci 180 sudo zfs list shard/home -H -o avail}
+usr${goto 200}${texeci 180 sudo zfs list vault/usr -H -o used}${goto 275}${texeci 180 sudo zfs list vault/usr -H -o avail}
+var${goto 200}${texeci 180 sudo zfs list vault/var -H -o used}${goto 275}${texeci 180 sudo zfs list vault/var -H -o avail}
+	${hr 4}
+]]
