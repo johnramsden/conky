@@ -61,10 +61,10 @@ conky.config = {
 	-- Force UTF8? note that UTF8 support required XFT
 	override_utf8_locale = false,
 }
-
+-- Cannot get image working:
+-- ${image "/home/john/.config/conky/images/arch.png" -p 0,30}${goto 125}${voffset 10}${machine}
 conky.text = [[
 SYSTEM ${hr 4}
-${image ~/Computer/Linux/Profiles/Conky/Images/arch.png -p 0,30}${goto 125}${voffset 10}${machine}
 ${goto 75}Kernel: ${kernel}
 ${voffset 10}${hr 4}${voffset 10}
 ${color slate grey}${time %a, } ${color }${time %e %B %G}
@@ -94,25 +94,25 @@ ${color lightgrey} ${top_mem name 3}${top_mem mem 3}
 ${color lightgrey} ${top_mem name 4}${top_mem mem 4}
 ${voffset 10}NETWORK ${hr 4}${voffset 10}
 ${color slate grey}Ip: ${color }${addr br0}
-${color slate grey}Email: ${color } ${execpi 300 ~/Computer/Linux/Profiles/Conky/Scripts/email.pl} new email
+${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
 ${color slate grey}${hr 1}${color }
 ${color slate grey}Download: ${color } ${downspeed br0}
 ${color slate grey}Upload: ${color } ${upspeed br0}
 ${voffset 20}ZPOOL: ${hr 4}${voffset 10}
-${texeci 180 sudo zpool status -x}
+${texeci 180 zpool status -x}
 ${color slate grey}${hr 1}${color }
 Pool:${goto 75}Size:${goto 150}Alloc:${goto 225}Free:${goto 300}Cap:${voffset -10}
 ${color slate grey}--------------------------------------------------${color }
-${texeci 180 sudo zpool list -H -o name vault}${goto 75}${texeci 180 sudo zpool list -H -o size vault}${goto 150}${texeci 180 sudo zpool list -H -o alloc vault}${goto 225}${texeci 180 sudo zpool list -H -o free vault}${goto 300}${texeci 180 sudo zpool list -H -o cap vault}
+${texeci 180 zpool list -H -o name vault}${goto 75}${texeci 180 zpool list -H -o size vault}${goto 150}${texeci 180 zpool list -H -o alloc vault}${goto 225}${texeci 180 zpool list -H -o free vault}${goto 300}${texeci 180 zpool list -H -o cap vault}
 ${color slate grey}${hr 1}${color }
 ${color slate grey}Datasets:${color }
 Name:${goto 200}Used:${goto 275}Snapshots:
 ${color slate grey}--------------------------------------------------${color }
 ${color slate grey}System:${color }
-vault${goto 200}${texeci 180 sudo zfs list vault -H -o used}${goto 275}${texeci 180 sudo zfs list vault -H -o avail}
-default${goto 200}${texeci 180 sudo zfs list vault/ROOT/default -H -o used}${goto 275}${texeci 180 sudo zfs list vault/ROOT/default -H -o avail}
-home${goto 200}${texeci 180 sudo zfs list shard/home -H -o used}${goto 275}${texeci 180 sudo zfs list shard/home -H -o avail}
-usr${goto 200}${texeci 180 sudo zfs list vault/usr -H -o used}${goto 275}${texeci 180 sudo zfs list vault/usr -H -o avail}
-var${goto 200}${texeci 180 sudo zfs list vault/var -H -o used}${goto 275}${texeci 180 sudo zfs list vault/var -H -o avail}
+vault${goto 200}${texeci 180 zfs list vault -H -o used}${goto 275}${texeci 180 zfs list vault -H -o avail}
+default${goto 200}${texeci 180 zfs list vault/ROOT/default -H -o used}${goto 275}${texeci 180 zfs list vault/ROOT/default -H -o avail}
+home${goto 200}${texeci 180 zfs list shard/home -H -o used}${goto 275}${texeci 180 zfs list shard/home -H -o avail}
+usr${goto 200}${texeci 180 zfs list vault/usr -H -o used}${goto 275}${texeci 180 zfs list vault/usr -H -o avail}
+var${goto 200}${texeci 180 zfs list vault/var -H -o used}${goto 275}${texeci 180 zfs list vault/var -H -o avail}
 	${hr 4}
 ]]
