@@ -15,11 +15,11 @@ conky.config = {
 	use_xft = true,
 
 	-- Xft font when Xft is enabled
-	--xftfont Bitstream Vera Sans Mono:size=8
-	font = 'Terminus:size=8',
+	--xftfont Bitstream Vera Sans Mono:size=7s
+	font = 'Terminus:size=7',
 
 	-- Text alpha when using Xft
-	xftalpha = 0.8,
+	xftalpha = 0.7,
 
 
 	-- Update interval in seconds
@@ -64,9 +64,10 @@ conky.config = {
 -- Cannot get image working:
 -- ${image "/home/john/.config/conky/images/arch.png" -p 0,30}${goto 125}${voffset 10}${machine}
 -- Needs deps:
--- ${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
+-- Mail::IMAPClient moduleconky/conkyrc
 conky.text = [[
 SYSTEM ${hr 4}
+${image /home/john/.config/conky/images/arch.png -p 0,30}${goto 125}${voffset 10}${machine}
 ${goto 75}Kernel: ${kernel}
 ${voffset 10}${hr 4}${voffset 10}
 ${color slate grey}${time %a, } ${color }${time %e %B %G}
@@ -96,6 +97,7 @@ ${color lightgrey} ${top_mem name 3}${top_mem mem 3}
 ${color lightgrey} ${top_mem name 4}${top_mem mem 4}
 ${voffset 10}NETWORK ${hr 4}${voffset 10}
 ${color slate grey}Ip: ${color }${addr eno1}
+${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
 ${color slate grey}${hr 1}${color }
 ${color slate grey}Download: ${color } ${downspeed eno1}
 ${color slate grey}Upload: ${color } ${upspeed eno1}
