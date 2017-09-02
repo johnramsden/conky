@@ -16,7 +16,7 @@ conky.config = {
 
 	-- Xft font when Xft is enabled
 	--xftfont Bitstream Vera Sans Mono:size=7s
-	font = 'Terminus:size=7',
+	font = 'Terminus:size=8',
 
 	-- Text alpha when using Xft
 	xftalpha = 0.7,
@@ -43,7 +43,6 @@ conky.config = {
 	gap_x = 10,
 	gap_y = 10,
 
-
 	-- Subtract file system buffers from used memory?
 	no_buffers = true,
 
@@ -57,14 +56,9 @@ conky.config = {
 	-- number of net samples to average
 	-- set to 1 to disable averaging
 	net_avg_samples = 2,
-
-	-- Force UTF8? note that UTF8 support required XFT
-	override_utf8_locale = false,
 }
--- Cannot get image working:
--- ${image "/home/john/.config/conky/images/arch.png" -p 0,30}${goto 125}${voffset 10}${machine}
--- Needs deps:
--- Mail::IMAPClient moduleconky/conkyrc
+-- Email Needs deps:
+-- Mail::IMAPClient and IO::Socket::SSL modules.
 conky.text = [[
 SYSTEM ${hr 4}
 ${image /home/john/.config/conky/images/arch.png -p 0,30}${goto 125}${voffset 10}${machine}
