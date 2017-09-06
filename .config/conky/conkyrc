@@ -113,25 +113,25 @@ ${execpi 3600 zfs list -H -o name,used,usedbysnapshots | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}HOME:${color }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots vault/sys/chin/home/john | \
-    sed -e 's:vault/sys/chin/home/john:~:' | \
+${execpi 3600 zfs list -H -o name,used,usedbysnapshots vault/sys/wooly/home/john | \
+    sed -e 's:vault/sys/wooly/home/john:~:' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${execpi 3600 zfs list -H -o name,used,usedbysnapshots | \
-  grep "vault/sys/chin" | \
+  grep "vault/sys/wooly" | \
   grep "home/john" | \
-  sed -e 's:vault/sys/chin/home/john/::' -e '1d' | \
+  sed -e 's:vault/sys/wooly/home/john/::' -e '1d' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}SYSTEM:${color }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots vault/sys/chin/ROOT/default | \
-  sed -e 's:vault/sys/chin/ROOT/default:/:' | \
+${execpi 3600 zfs list -H -o name,used,usedbysnapshots vault/sys/wooly/ROOT/default | \
+  sed -e 's:vault/sys/wooly/ROOT/default:/:' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots vault/sys/chin/var/log | \
-    sed -e 's:vault/sys/chin/var/::' | \
+${execpi 3600 zfs list -H -o name,used,usedbysnapshots vault/sys/wooly/var/log | \
+    sed -e 's:vault/sys/wooly/var/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}CONTAINERS:${color }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/chin" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/chin/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/chin/var/lib/machines/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
+${execpi 3600 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/wooly" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/wooly/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
+${execpi 3600 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/wooly/var/lib/machines/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
 ${color slate grey}${hr 4}
 ]]
