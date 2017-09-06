@@ -1,6 +1,6 @@
 The email-template.pl file constains the config for email. IMAPClient is required and is provided by [```perl-mail-imapclient (AUR)```](https://aur.archlinux.org/packages/perl-mail-imapclient/), "IO::Socket::SSL" module is required and provided by [```perl-io-socket-ssl```](https://www.archlinux.org/packages/extra/any/perl-io-socket-ssl/).
 
-To use images, [```conky-lua (aur)```](https://aur.archlinux.org/packages/conky-lua/) is required.
+To use images, [```conky-lua (aur)```](https://aur.archlinux.org/packages/conky-lua/) MAY be required.
 
 ```
 #!/usr/bin/perl
