@@ -90,11 +90,12 @@ ${color lightgrey} ${top_mem name 2}${top_mem mem 2}
 ${color lightgrey} ${top_mem name 3}${top_mem mem 3}
 ${color lightgrey} ${top_mem name 4}${top_mem mem 4}
 ${voffset 10}NETWORK ${hr 4}${voffset 10}
-${color slate grey}Ip: ${color }${addr eno1}
+${color slate grey}Ip: ${color }${addr bond1}
 ${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
 ${color slate grey}${hr 1}${color }
-${color slate grey}Download: ${color } ${downspeed eno1}
-${color slate grey}Upload: ${color } ${upspeed eno1}
+${color slate grey}Down:${color } ${downspeed bond1} ${alignr}${color slate grey}Up:${color } ${upspeed bond1}
+${downspeedgraph bond1 25,150 ddaa00 ff0000 18750 -t} ${alignr}${upspeedgraph bond1 25,150 ddaa00 ff0000 1875 -t}
+${color slate grey}Total:${color } ${totaldown bond1} ${alignr}${color slate grey}Total:${color } ${totalup bond1}
 ${voffset 20}ZPOOL: ${hr 4}${voffset 10}
 ${texeci 180 zpool status -x}
 ${color slate grey}${hr 1}${color }
