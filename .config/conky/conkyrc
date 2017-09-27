@@ -67,6 +67,7 @@ ${voffset 10}${hr 4}${voffset 10}
 ${color slate grey}${time %a, } ${color }${time %e %B %G}
 ${color slate grey}${time %Z, }${color }${time %H:%M:%S}
 ${color slate grey}UpTime: ${color }$uptime
+${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
 ${color slate grey}Package Updates: ${color }${execpi 1200 checkupdates | wc -l}
 ${voffset 10}CPU ${hr 4}${voffset 10}
 ${color slate grey}USAGE:${color } $cpu% ${acpitemp}C
@@ -90,12 +91,21 @@ ${color lightgrey} ${top_mem name 2}${top_mem mem 2}
 ${color lightgrey} ${top_mem name 3}${top_mem mem 3}
 ${color lightgrey} ${top_mem name 4}${top_mem mem 4}
 ${voffset 10}NETWORK ${hr 4}${voffset 10}
-${color slate grey}Ip: ${color }${addr bond1}
-${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
+${if_existing /sys/class/net/enp0s31f6/operstate up}Wired
+${color slate grey}Interface: ${color }enp0s31f6
+${color slate grey}Ip: ${color }${addr enp0s31f6}
+${color slate grey}Down:${color } ${downspeed enp0s31f6} ${alignr}${color slate grey}Up:${color } ${upspeed enp0s31f6}
+${downspeedgraph enp0s31f6 25,150 ddaa00 ff0000 18750 -t} ${alignr}${upspeedgraph enp0s31f6 25,150 ddaa00 ff0000 1875 -t}
+${color slate grey}Total:${color } ${totaldown enp0s31f6} ${alignr}${color slate grey}Total:${color } ${totalup enp0s31f6}
 ${color slate grey}${hr 1}${color }
-${color slate grey}Down:${color } ${downspeed bond1} ${alignr}${color slate grey}Up:${color } ${upspeed bond1}
-${downspeedgraph bond1 25,150 ddaa00 ff0000 18750 -t} ${alignr}${upspeedgraph bond1 25,150 ddaa00 ff0000 1875 -t}
-${color slate grey}Total:${color } ${totaldown bond1} ${alignr}${color slate grey}Total:${color } ${totalup bond1}
+${endif}${if_existing /sys/class/net/wlp3s0/operstate up}Wireless
+${color slate grey}Interface: ${color }wlp3s0
+${color slate grey}Ip: ${color }${addr wlp3s0}
+${color slate grey}Down:${color } ${downspeed wlp3s0} ${alignr}${color slate grey}Up:${color } ${upspeed wlp3s0}
+${downspeedgraph wlp3s0 25,150 ddaa00 ff0000 18750 -t} ${alignr}${upspeedgraph wlp3s0 25,150 ddaa00 ff0000 1875 -t}
+${color slate grey}Total:${color } ${totaldown wlp3s0} ${alignr}${color slate grey}Total:${color } ${totalup wlp3s0}
+${color slate grey}${hr 1}${color }
+${endif}
 ${voffset 20}ZPOOL: ${hr 4}${voffset 10}
 ${texeci 180 zpool status -x}
 ${color slate grey}${hr 1}${color }
