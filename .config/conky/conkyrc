@@ -21,7 +21,6 @@ conky.config = {
 	-- Text alpha when using Xft
 	xftalpha = 0.7,
 
-
 	-- Update interval in seconds
 	update_interval = 2.0,
 
@@ -117,40 +116,41 @@ ${color slate grey}Datasets:${color }
 Name:${goto 200}Used:${goto 275}Snapshots:
 ${color slate grey}--------------------------------------------------${color }
 ${color #ddaa00}DATA:${color }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots | \
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots | \
   grep "vault/data" | \
   sed -e 's:vault/data/::' -e '1d' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
-${color #ddaa00}HOME${color }${execpi 3600 zfs list -H -o used,usedbysnapshots vault/sys/wooly/home/john | \
+${color #ddaa00}HOME${color }${execpi 7200 zfs list -H -o used,usedbysnapshots \
+      vault/sys/wooly/home/john | \
     sed -e 's:vault/sys/wooly/home/john:~:' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots \
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
       vault/sys/wooly/home/john/cache | \
     sed 's:vault/sys/wooly/home/john/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots \
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
        vault/sys/wooly/home/john/config | \
     sed 's:vault/sys/wooly/home/john/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 3600 zfs list -r -H -o name,used,usedbysnapshots \
+${execpi 7200 zfs list -r -H -o name,used,usedbysnapshots \
     vault/sys/wooly/home/john/local | \
   sed -e 's:vault/sys/wooly/home/john/::' -e 's:local/:...:' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 3600 zfs list -r -H -o name,used,usedbysnapshots \
+${execpi 7200 zfs list -r -H -o name,used,usedbysnapshots \
     vault/sys/wooly/home/john/downloads | \
   sed -e 's:vault/sys/wooly/home/john/::' -e 's:downloads/:...:' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
-${color #ddaa00}SYSTEM${color }${execpi 3600 zfs list -H -o used,usedbysnapshots \
+${color #ddaa00}SYSTEM${color }${execpi 7200 zfs list -H -o used,usedbysnapshots \
     vault/sys/wooly/ROOT/default | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots vault/sys/wooly/var/log | \
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots vault/sys/wooly/var/log | \
     sed -e 's:vault/sys/wooly/var/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}CONTAINERS:${color }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/wooly" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/wooly/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
-${execpi 3600 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/wooly/var/lib/machines/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/wooly" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/wooly/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/wooly/var/lib/machines/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
 ${color slate grey}${hr 4}
 ]]
