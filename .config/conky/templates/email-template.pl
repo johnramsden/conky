@@ -15,8 +15,8 @@ my $username = '';
 my $password = '';
 
 my $socket = IO::Socket::SSL->new(
-  PeerAddr => 'mail.messagingengine.com',
-  PeerPort => 992
+  PeerAddr => 'imap.fastmail.com',
+  PeerPort => 993
  )
  or die "socket(): $@";
 
