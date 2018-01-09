@@ -3,7 +3,7 @@ conky.config = {
 	-- With KDE
 	own_window = true,
 	own_window_type = 'normal',
-	own_window_transparent = true,
+	own_window_transparent = false,
 	own_window_argb_value = 180, -- Defines opacity of background
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_argb_visual = true,
@@ -56,8 +56,6 @@ conky.config = {
 	-- set to 1 to disable averaging
 	net_avg_samples = 2,
 }
-
-system_name = "SYSTEM"
 
 -- Email Needs deps:
 -- Mail::IMAPClient and IO::Socket::SSL modules.
@@ -138,9 +136,9 @@ ${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
        vault/sys/wooly/home/john/config | \
     sed 's:vault/sys/wooly/home/john/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 7200 zfs list -r -H -o name,used,usedbysnapshots \
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots -d 2 \
     vault/sys/wooly/home/john/local | \
-  sed -e 's:vault/sys/wooly/home/john/::' -e 's:local/:...:' | \
+  sed -e 's:vault/sys/wooly/home/john/::' -e 's:local/:../:' -e 's:share/:../:' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${execpi 7200 zfs list -r -H -o name,used,usedbysnapshots \
     vault/sys/wooly/home/john/downloads | \
