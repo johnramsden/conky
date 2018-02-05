@@ -16,7 +16,7 @@ conky.config = {
 
 	-- Xft font when Xft is enabled
 	--xftfont Bitstream Vera Sans Mono:size=7s
-	font = 'Terminus:size=8',
+	font = 'Terminus:size=7',
 
 	-- Text alpha when using Xft
 	xftalpha = 0.7,
@@ -91,12 +91,12 @@ ${color lightgrey} ${top_mem name 2}${top_mem mem 2}
 ${color lightgrey} ${top_mem name 3}${top_mem mem 3}
 ${color lightgrey} ${top_mem name 4}${top_mem mem 4}
 ${voffset 10}NETWORK ${hr 4}${voffset 10}
-${if_existing /sys/class/net/enp0s31f6/operstate up}Wired
-${color slate grey}Interface: ${color }enp0s31f6
-${color slate grey}Ip: ${color }${addr enp0s31f6}
-${color slate grey}Down:${color } ${downspeed enp0s31f6} ${alignr}${color slate grey}Up:${color } ${upspeed enp0s31f6}
-${downspeedgraph enp0s31f6 25,150 ddaa00 ff0000 18750 -t} ${alignr}${upspeedgraph enp0s31f6 25,150 ddaa00 ff0000 1875 -t}
-${color slate grey}Total:${color } ${totaldown enp0s31f6} ${alignr}${color slate grey}Total:${color } ${totalup enp0s31f6}
+${if_existing /sys/class/net/bond1/operstate up}Wired
+${color slate grey}Interface: ${color }bond1
+${color slate grey}Ip: ${color }${addr bond1}
+${color slate grey}Down:${color } ${downspeed bond1} ${alignr}${color slate grey}Up:${color } ${upspeed bond1}
+${downspeedgraph bond1 25,150 ddaa00 ff0000 18750 -t} ${alignr}${upspeedgraph bond1 25,150 ddaa00 ff0000 1875 -t}
+${color slate grey}Total:${color } ${totaldown bond1} ${alignr}${color slate grey}Total:${color } ${totalup bond1}
 ${color slate grey}${hr 1}${color }
 ${endif}${if_existing /sys/class/net/wlp3s0/operstate up}Wireless
 ${color slate grey}Interface: ${color }wlp3s0
@@ -125,35 +125,31 @@ ${execpi 7200 zfs list -H -o name,used,usedbysnapshots | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}HOME${execpi 7200 zfs list -H -o used,usedbysnapshots \
-      vault/sys/wooly/home/john | \
-    sed -e 's:vault/sys/wooly/home/john:~:' | \
+      vault/sys/chin/home/john | \
+    sed -e 's:vault/sys/chin/home/john:~:' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }${color }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
-      vault/sys/wooly/home/john/cache | \
-    sed 's:vault/sys/wooly/home/john/::' | \
+      vault/sys/chin/home/john/cache | \
+    sed 's:vault/sys/chin/home/john/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
-       vault/sys/wooly/home/john/config | \
-    sed 's:vault/sys/wooly/home/john/::' | \
+       vault/sys/chin/home/john/config | \
+    sed 's:vault/sys/chin/home/john/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots -d 2 \
-    vault/sys/wooly/home/john/local | \
-  sed -e 's:vault/sys/wooly/home/john/::' -e 's:local/:../:' -e 's:share/:../:' | \
-  awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 7200 zfs list -r -H -o name,used,usedbysnapshots \
-    vault/sys/wooly/home/john/downloads | \
-  sed -e 's:vault/sys/wooly/home/john/::' -e 's:downloads/:...:' | \
+    vault/sys/chin/home/john/local | \
+  sed -e 's:vault/sys/chin/home/john/::' -e 's:local/:../:' -e 's:share/:../:' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}SYSTEM${execpi 7200 zfs list -H -o used,usedbysnapshots \
-    vault/sys/wooly/ROOT/default | \
+    vault/sys/chin/ROOT/default | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }${color }
-${execpi 7200 zfs list -H -o name,used,usedbysnapshots vault/sys/wooly/var/log | \
-    sed -e 's:vault/sys/wooly/var/::' | \
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots vault/sys/chin/var/log | \
+    sed -e 's:vault/sys/chin/var/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}CONTAINERS${color }
-${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/wooly" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/wooly/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
-${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/wooly/var/lib/machines/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/chin" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/chin/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/chin/var/lib/machines/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
 ${color slate grey}${hr 4}
 ]]
