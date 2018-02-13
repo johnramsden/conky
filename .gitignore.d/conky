@@ -1,5 +1,4 @@
 *
-!/.config
 !/.config/conky
 !/.config/conky/conkyrc
 !/.gitignore
