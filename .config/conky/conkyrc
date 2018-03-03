@@ -70,9 +70,9 @@ ${color slate grey}UpTime: ${color }$uptime
 ${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
 ${color slate grey}Package Updates: ${color }${execpi 1200 checkupdates | wc -l}
 ${voffset 10}CPU ${hr 4}${voffset 10}
-${color slate grey}USAGE:${color } $cpu% ${acpitemp}C
+${color slate grey}USAGE:${color } $cpu% ${acpitemp}C 
 ${cpugraph 20,130 000000 ffffff}
-${color slate grey}Load: ${color }$loadavg
+${voffset 15}${color slate grey}Load: ${color }$loadavg
 ${color slate grey}Processes: ${color }$processes
 ${color slate grey}Running:   ${color }$running_processes
 ${color slate grey}${hr 1}${color }
@@ -109,47 +109,47 @@ ${endif}
 ${voffset 20}ZPOOL: ${hr 4}${voffset 10}
 ${texeci 180 zpool status -x}
 ${color slate grey}${hr 1}${color }
-Pool:${goto 75}Size:${goto 150}Alloc:${goto 225}Free:${goto 300}Cap:${voffset -10}
+Pool:${goto 60}Size:${goto 120}Alloc:${goto 180}Free:${goto 240}Cap:${voffset -10}
 ${color slate grey}--------------------------------------------------${color }
-vault${goto 75}${texeci 180 zpool list -H -o size vault}${goto 150}${texeci 180 zpool list -H -o alloc vault}${goto 225}${texeci 180 zpool list -H -o free vault}${goto 300}${texeci 180 zpool list -H -o cap vault}
+vault${goto 60}${texeci 180 zpool list -H -o size vault}${goto 120}${texeci 180 zpool list -H -o alloc vault}${goto 180}${texeci 180 zpool list -H -o free vault}${goto 240}${texeci 180 zpool list -H -o cap vault}
 ${color slate grey}${hr 1}${color }
 ${color slate grey}Datasets:${color }
-Name:${goto 200}Used:${goto 275}Snapshots:
+Name:${goto 120}Used:${goto 200}Snapshots:
 ${color slate grey}--------------------------------------------------${color }
 ${color #ddaa00}DATA${execpi 7200 zfs list -H -o used,usedbysnapshots \
       vault/data | \
-    awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }${color }
+    awk -v name='${goto 120}' -v used='${goto 220}' '{print name$1 used$2}' }${color }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots | \
   grep "vault/data" | \
   sed -e 's:vault/data/::' -e '1d' | \
-  awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
+  awk -v name='${goto 120}' -v used='${goto 220}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}HOME${execpi 7200 zfs list -H -o used,usedbysnapshots \
       vault/sys/chin/home/john | \
     sed -e 's:vault/sys/chin/home/john:~:' | \
-    awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }${color }
+    awk -v name='${goto 120}' -v used='${goto 220}' '{print name$1 used$2}' }${color }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
       vault/sys/chin/home/john/cache | \
     sed 's:vault/sys/chin/home/john/::' | \
-    awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
+    awk -v name='${goto 120}' -v used='${goto 220}' '{print $1 name$2 used$3}' }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
        vault/sys/chin/home/john/config | \
     sed 's:vault/sys/chin/home/john/::' | \
-    awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
+    awk -v name='${goto 120}' -v used='${goto 220}' '{print $1 name$2 used$3}' }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots -d 2 \
     vault/sys/chin/home/john/local | \
   sed -e 's:vault/sys/chin/home/john/::' -e 's:local/:../:' -e 's:share/:../:' | \
-  awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
+  awk -v name='${goto 120}' -v used='${goto 220}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}SYSTEM${execpi 7200 zfs list -H -o used,usedbysnapshots \
     vault/sys/chin/ROOT/default | \
-  awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }${color }
+  awk -v name='${goto 120}' -v used='${goto 220}' '{print name$1 used$2}' }${color }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots vault/sys/chin/var/log | \
     sed -e 's:vault/sys/chin/var/::' | \
-    awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
+    awk -v name='${goto 120}' -v used='${goto 220}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}CONTAINERS${color }
-${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/chin" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/chin/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
-${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/chin/var/lib/machines/::' | awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}'  }
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault/sys/chin" | grep -e 'lxc/' -e 'lxd/' | sed -e 's:vault/sys/chin/var/lib/\(lx[cd]\)/::' | awk -v name='${goto 120}' -v used='${goto 220}' '{print $1 name$2 used$3}'  }
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots | grep "vault" | grep -e 'machines/' | sed -e 's:vault/sys/chin/var/lib/machines/::' | awk -v name='${goto 120}' -v used='${goto 220}' '{print $1 name$2 used$3}'  }
 ${color slate grey}${hr 4}
 ]]
