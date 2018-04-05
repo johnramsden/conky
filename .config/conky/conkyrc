@@ -129,20 +129,12 @@ ${color #ddaa00}HOME${execpi 7200 zfs list -H -o used,usedbysnapshots \
     sed -e 's:vault/sys/wooly/home/john:~:' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print name$1 used$2}' }${color }
 ${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
-      vault/sys/wooly/home/john/cache | \
-    sed 's:vault/sys/wooly/home/john/::' | \
-    awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 7200 zfs list -H -o name,used,usedbysnapshots \
        vault/sys/wooly/home/john/config | \
     sed 's:vault/sys/wooly/home/john/::' | \
     awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 7200 zfs list -H -o name,used,usedbysnapshots -d 2 \
+${execpi 7200 zfs list -H -o name,used,usedbysnapshots -d 1 \
     vault/sys/wooly/home/john/local | \
-  sed -e 's:vault/sys/wooly/home/john/::' -e 's:local/:../:' -e 's:share/:../:' | \
-  awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
-${execpi 7200 zfs list -r -H -o name,used,usedbysnapshots \
-    vault/sys/wooly/home/john/downloads | \
-  sed -e 's:vault/sys/wooly/home/john/::' -e 's:downloads/:...:' | \
+  sed -e 's:vault/sys/wooly/home/john/::' -e 's:local/:...:' -e 's:share/:...:' | \
   awk -v name='${goto 200}' -v used='${goto 300}' '{print $1 name$2 used$3}' }
 ${color slate grey}${hr 1}
 ${color #ddaa00}SYSTEM${execpi 7200 zfs list -H -o used,usedbysnapshots \
