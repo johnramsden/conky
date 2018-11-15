@@ -103,9 +103,9 @@ ${endif}
 ${voffset 20}ZPOOL: ${hr 4}${voffset 10}
 ${texeci 180 zpool status -x}
 ${color slate grey}${hr 1}${color }
-Pool:${goto 75}Size:${goto 150}Alloc:${goto 225}Free:${goto 300}Cap:${voffset -10}
+Pool:${goto 75}Size:${goto 150}Used:${goto 225}Free:${goto 300}Cap:${voffset -10}
 ${color slate grey}--------------------------------------------------${color }
-vault${goto 75}${texeci 180 zpool list -H -o size vault}${goto 150}${texeci 180 zpool list -H -o alloc vault}${goto 225}${texeci 180 zpool list -H -o free vault}${goto 300}${texeci 180 zpool list -H -o cap vault}
+vault${goto 75}${texeci 180 zpool list -H -o size vault}${goto 150}${texeci 180 zfs list -H -o used vault}${goto 225}${texeci 180 zfs list -H -o available vault}${goto 300}${texeci 180 zpool list -H -o cap vault}
 ${color slate grey}${hr 1}${color }
 ${color slate grey}Datasets:${color }
 Name:${goto 200}Used:${goto 275}Snapshots:
