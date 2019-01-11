@@ -69,7 +69,7 @@ ${color slate grey}${time %Z, }${color }${time %H:%M:%S}
 ${color slate grey}UpTime: ${color }$uptime
 ${color slate grey}Email: ${color } ${execpi 300 "/home/john/.config/conky/scripts/email.pl"} new email
 ${color slate grey}System Updates: ${color }${execpi 1200 checkupdates | wc -l}
-${color slate grey}AUR Updates: ${color }${execpi 1200 aurcheck -d custom | wc -l}
+${color slate grey}AUR Updates: ${color }${execpi 1200 aur repo --upgrades | wc -l}
 ${voffset 10}CPU ${hr 4}${voffset 10}
 ${color slate grey}USAGE:${color } $cpu% ${acpitemp}C
 ${cpugraph 20,130 000000 ffffff}
