@@ -11,8 +11,8 @@ use strict;
 use Mail::IMAPClient;
 use IO::Socket::SSL;
 
-my $username = '';
-my $password = '';
+my $username = '{{ conky_email_username }}';
+my $password = '{{ conky_email_password }}';
 
 my $socket = IO::Socket::SSL->new(
   PeerAddr => 'imap.fastmail.com',

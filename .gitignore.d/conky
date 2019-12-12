@@ -1,7 +1,0 @@
-*
-!/.config
-!/.config/conky
-!/.config/conky/conkyrc
-!/.gitignore
-!/.gitignore.d
-!/.gitignore.d/conky
